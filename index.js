@@ -9,14 +9,17 @@ function Diagnostics (bindable, bindableKey) {
   const stateNodeData = sharedLogger.getStateNodeData(stateNode)
   return {
     log (message) {
-      stateNodeData.message = message
-      stateNodeData.error = null
-      stateNodeData.ts = new Date().toISOString()
+      stateNodeData.log = {
+        message,
+        ts: new Date().toISOString()
+      }
     },
     error (message, error) {
-      stateNodeData.message = message
-      stateNodeData.error = error
-      stateNodeData.ts = new Date().toISOString()
+      stateNodeData.error = {
+        message,
+        error,
+        ts: new Date().toISOString()
+      }
     },
     dump ({ includeChildren = false } = {}) {
       if (includeChildren) {
