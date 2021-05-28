@@ -34,5 +34,8 @@ module.exports = {
   Diagnostics,
   getSharedState () {
     return sharedLogger.dumpRecursive()['/'] || {}
+  },
+  bindableExists (bindable) {
+    return sharedLogger.isPathBound(bindable)
   }
 }
