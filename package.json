@@ -1,0 +1,22 @@
+{
+  "name": "shared-diagnostics",
+  "version": "0.1.0",
+  "description": "Collect diagnostic logs between modules in shared state",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "node ./node_modules/eslint/bin/eslint **/*.js",
+    "fix": "npm run lint -- --fix"
+  },
+  "author": "INOVA IT d.o.o.",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "6.*",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "13.*",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^5.0.0"
+  }
+}
