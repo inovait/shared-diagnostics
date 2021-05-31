@@ -1,13 +1,12 @@
 const sharedLogger = require('./lib/shared-logger')
 
-function Diagnostics (bindable, bindableKey) {
-  if (!sharedLogger.isBound(bindable)) {
-    sharedLogger.bindKey(bindable, bindableKey)
-  }
-
-  const stateNode = sharedLogger.getBindableStateNode(bindable)
+function createDiagnosticsEntry (stateNode) {
   const stateNodeData = sharedLogger.getStateNodeData(stateNode)
   return {
+    path (path) {
+      const nextStateNode = sharedLogger._createKeyPathStateNode(path, stateNode)
+      return createDiagnosticsEntry(nextStateNode)
+    },
     log (message) {
       stateNodeData.log = {
         message,
@@ -28,6 +27,15 @@ function Diagnostics (bindable, bindableKey) {
       return stateNodeData
     }
   }
+}
+
+function Diagnostics (bindable, bindableKey) {
+  if (!sharedLogger.isBound(bindable)) {
+    sharedLogger.bindKey(bindable, bindableKey)
+  }
+
+  const stateNode = sharedLogger.getBindableStateNode(bindable)
+  return createDiagnosticsEntry(stateNode)
 }
 
 module.exports = {
