@@ -45,5 +45,8 @@ module.exports = {
   },
   bindableExists (bindable) {
     return sharedLogger.isPathBound(bindable)
+  },
+  traverseSharedStatePath (keyPath) {
+    return sharedLogger.traversePathToStateNode(keyPath)
   }
 }
