@@ -1,6 +1,6 @@
 {
   "name": "shared-diagnostics",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "Collect diagnostic logs between modules in shared state",
   "main": "index.js",
   "scripts": {
