@@ -2,13 +2,14 @@ const sharedLogger = require('./lib/shared-logger')
 const _tracePrivateSym = Symbol('_tracePrivateMethodKey')
 function createDiagnosticsEntry (stateNode) {
   const stateNodeData = sharedLogger.getStateNodeData(stateNode)
-
+  const incrementStateCounter = (stateNode, fieldName) => ((stateNode && stateNode[fieldName] && stateNode[fieldName].counter) || 0) + 1
   return {
     [_tracePrivateSym] (message, stackTrace) {
       stateNodeData.trace = {
         payload: message,
         stackTrace,
-        ts: new Date().toISOString()
+        ts: new Date().toISOString(),
+        counter: incrementStateCounter(stateNodeData, 'trace')
       }
     },
     path (path) {
@@ -18,14 +19,16 @@ function createDiagnosticsEntry (stateNode) {
     log (message) {
       stateNodeData.log = {
         payload: message,
-        ts: new Date().toISOString()
+        ts: new Date().toISOString(),
+        counter: incrementStateCounter(stateNodeData, 'log')
       }
     },
     error (message, error) {
       stateNodeData.error = {
         payload: message,
         error,
-        ts: new Date().toISOString()
+        ts: new Date().toISOString(),
+        counter: incrementStateCounter(stateNodeData, 'error')
       }
     },
     trace (message) {
